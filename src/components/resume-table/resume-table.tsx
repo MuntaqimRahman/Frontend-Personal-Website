@@ -35,6 +35,15 @@ const tempInitialData: initialData[] = [
         link: "https://www.google.ca/",
         startDate: "May 2020",
         endDate: "June 2021",
+      },{
+        bodyPoints: [
+          "four score and 25 years ago we hold these truths to be self evident",
+        ],
+        title: "Full Stack Developer",
+        company: "Empire Life",
+        link: "https://www.google.ca/",
+        startDate: "May 2020",
+        endDate: "June 2021",
       },
     ] as ResumeTableTileProps[],
   },

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import {SimpleLink} from "../../components/styles/globalStyles";
 
 import DarkModeContext from "../../contexts/darkmode";
 import ToggleButton from "../../components/toggle-button/toggle-button";
@@ -48,10 +48,7 @@ const LinkLabel = styled.span`
   cursor: pointer;
 `;
 
-const StyledLink = styled(Link)<DarkModeProps>`
-  text-decoration: none;
-  color: ${({ isDarkMode }) => (isDarkMode ? "#E8E8E8" : "#464547")}}
-  transition: all 5s linear; 
+const StyledLink = styled(SimpleLink)<DarkModeProps>`
 
   &:after{
     content: "";

@@ -1,6 +1,8 @@
 import styled, { createGlobalStyle } from "styled-components";
 import { DarkModeProps } from "./LightDarkThemes";
 
+import {Link} from "react-router-dom";
+
 interface GlobalProps {
   theme: {
     body: string;
@@ -25,5 +27,12 @@ export const TileHolder = styled.div<DarkModeProps>`
   height: fit-content;
   border-radius: 10px;
   padding-bottom: 20px;
+  margin-bottom: 20px;
+
   background-color: ${({ isDarkMode }) => (isDarkMode ? "#282828" : "#F8F8F8")};
 `;
+
+export const SimpleLink = styled(Link)`
+    text-decoration: none;
+    color: inherit;
+  `

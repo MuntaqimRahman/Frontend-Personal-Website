@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 //Pages
 import PortfolioPage from "./pages/portfolio/portfolio";
 import AboutPage from "./pages/about/about";
+import ContentPage from "./pages/content-page/content-page";
 
 //Components
 import useLocalStorage from "./hooks/useLocalStorage";
@@ -30,9 +31,10 @@ function App() {
             <Header toggleDarkMode={toggleDarkMode} />
           </div>
           <Switch>
-            <Route path="/portfolio">
+            <Route exact path="/portfolio">
               <PortfolioPage />
             </Route>
+            <Route path={`/portfolio/:ID`}><ContentPage/> </Route>
             <Route path="/">
               <AboutPage />
             </Route>
