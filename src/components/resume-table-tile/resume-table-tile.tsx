@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect } from "react";
 import styled from "styled-components";
 
 import DarkModeContext from "../../contexts/darkmode";
@@ -12,20 +12,20 @@ import { TileHolder } from "../styles/globalStyles";
 
 export interface ResumeTableTileProps {
   title: string | null | undefined;
-  company: string | null | undefined;
+  sub_description: string | null | undefined;
   link?: string | null | undefined;
-  startDate?: string | null | undefined;
-  endDate?: string | null | undefined;
-  bodyPoints?: string[];
+  start_date?: string | null | undefined;
+  end_date?: string | null | undefined;
+  body_points?: string[];
 }
 
 const ResumeTableTile: FC<ResumeTableTileProps> = ({
   title,
-  company,
+  sub_description,
   link,
-  startDate,
-  endDate,
-  bodyPoints = [],
+  start_date,
+  end_date,
+  body_points = [],
 }) => {
   const { isDarkMode } = useContext(DarkModeContext);
 
@@ -35,7 +35,7 @@ const ResumeTableTile: FC<ResumeTableTileProps> = ({
     justify-content: space-between;
   `;
 
-  const CompanyContainer = styled.span`
+  const SubDescriptionContainer = styled.span`
     font-size: 1.1em;
     margin-left: 30px;
   `;
@@ -73,12 +73,12 @@ const ResumeTableTile: FC<ResumeTableTileProps> = ({
   ];
 
   const formatDateString = () => {
-    if (!startDate) return "";
+    if (!start_date) return "";
 
-    let displayedDateString = startDate;
+    let displayedDateString = start_date;
 
-    if (endDate) {
-      displayedDateString += ` - ${endDate}`;
+    if (end_date) {
+      displayedDateString += ` - ${end_date}`;
     }
 
     return displayedDateString;
@@ -88,23 +88,23 @@ const ResumeTableTile: FC<ResumeTableTileProps> = ({
     <TileHolder isDarkMode={isDarkMode}>
       <TitleContainer> {title} </TitleContainer>
       <SecondaryContainer>
-        <CompanyContainer>
-          {company}
+        <SubDescriptionContainer>
+          {sub_description}
           {link && (
             <IconLinkContainer>
               <IconLinks iconArray={linkIconData} />
             </IconLinkContainer>
           )}
-        </CompanyContainer>
-        {startDate && (
+        </SubDescriptionContainer>
+        {start_date && (
           <DurationContainer>{formatDateString()}</DurationContainer>
         )}
       </SecondaryContainer>
 
-      {bodyPoints.length > 0 && (
+      {body_points.length > 0 && (
         <BulletPointContainer>
           <ul>
-            {bodyPoints.map((bodyString) => {
+            {body_points.map((bodyString) => {
               return <li>{bodyString}</li>;
             })}
           </ul>

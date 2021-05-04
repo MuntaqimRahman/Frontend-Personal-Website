@@ -10,14 +10,12 @@ import { TileHolder } from "../styles/globalStyles";
 import ContentPage from "../../pages/content-page/content-page";
 
 interface ContentTitleProps {
-  match: {
-    url: string;
-  };
   id: number;
-  title: string;
-  content: string;
+  title: string | undefined;
+  content: string | undefined;
   imgs?: string[] | undefined;
   isLeftAligned: boolean;
+  url: string | undefined;
 }
 
 interface LeftAlignedProps {
@@ -25,12 +23,12 @@ interface LeftAlignedProps {
 }
 
 const ContentTile: FC<ContentTitleProps> = ({
-  match,
   id,
   title,
   content,
   imgs,
   isLeftAligned,
+  url
 }) => {
   const { isDarkMode } = useContext(DarkModeContext);
 
@@ -53,8 +51,8 @@ const ContentTile: FC<ContentTitleProps> = ({
     flex-direction: column;
     justify-content: center;
 
-    margin-left: ${({ isLeftAligned }) => (isLeftAligned ? "4vw" : "0px")};
-    margin-right: ${({ isLeftAligned }) => (isLeftAligned ? "0px" : "4vw")};
+    margin-left: ${({ isLeftAligned }) => (isLeftAligned ? "3vw" : "0px")};
+    margin-right: ${({ isLeftAligned }) => (isLeftAligned ? "0px" : "3vw")};
     width: 75vw;
     height: 100%;
 
@@ -87,7 +85,7 @@ const ContentTile: FC<ContentTitleProps> = ({
 
   return (
     <>
-    <SimpleLink to={`/portfolio/${id}`}>
+    <SimpleLink to={`${url}/${id}`}>
       <ContentTileHolder isLeftAligned={isLeftAligned} isDarkMode={isDarkMode}>
         <ContentContainer isLeftAligned={isLeftAligned}>
           {Array.isArray(imgs) && imgs.length > 0 && (

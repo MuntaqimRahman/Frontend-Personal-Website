@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import {SimpleLink} from "../../components/styles/globalStyles";
+import { SimpleLink } from "../../components/styles/globalStyles";
 
 import DarkModeContext from "../../contexts/darkmode";
 import ToggleButton from "../../components/toggle-button/toggle-button";
@@ -81,10 +81,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode }) => {
         <ToggleButton onClickHandler={toggleDarkMode} />
       </DarkModeButtonContainer>
       <LinkContainer>
-        <StyledLink isDarkMode={isDarkMode} to="/portfolio">
+        <StyledLink to="/portfolio">
           <LinkLabel> Portfolio </LinkLabel>
         </StyledLink>
-        <LinkLabel> Blog </LinkLabel>
+        <StyledLink to="/blogs">
+          <LinkLabel> Blog </LinkLabel>
+        </StyledLink>
       </LinkContainer>
     </HeaderWrapper>
   );

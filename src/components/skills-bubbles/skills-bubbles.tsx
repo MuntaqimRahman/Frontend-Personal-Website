@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext} from "react";
 import styled from "styled-components";
 
 import DarkModeContext from "../../contexts/darkmode";
@@ -32,13 +32,6 @@ const SkillsBubbles: FC<SkillsBubblesProps> = ({
       values: tools,
     },
   ];
-
-  useEffect(() => {
-    console.log("RENDERED SKILLS");
-    console.log(languages);
-    console.log(frameworks);
-    console.log(tools);   
-  })
 
   const SectionContainer = styled.span`
     display: flex;

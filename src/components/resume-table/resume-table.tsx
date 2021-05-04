@@ -10,6 +10,8 @@ import SkillsBubbles, {
 import { DarkModeProps } from "../../components/styles/LightDarkThemes";
 import DarkModeContext from "../../contexts/darkmode";
 
+import {GetExperiences, GetResumeProjects, GetActivities, GetSkills} from "../../api/resume_api";
+
 const dataTypes = {
   experiences: "EXPERIENCES",
   projects: "PROJECTS",
@@ -17,92 +19,33 @@ const dataTypes = {
   skills: "SKILLS",
 };
 
-interface initialData {
+interface resumeDataState {
   type: string;
   values: ResumeTableTileProps[] | SkillsBubblesProps[];
 }
 
-const tempInitialData: initialData[] = [
+const initialData = [
   {
     type: dataTypes.experiences,
-    values: [
-      {
-        bodyPoints: [
-          "four score and 25 years ago we hold these truths to be self evident",
-        ],
-        title: "Full Stack Developer",
-        company: "Empire Life",
-        link: "https://www.google.ca/",
-        startDate: "May 2020",
-        endDate: "June 2021",
-      },{
-        bodyPoints: [
-          "four score and 25 years ago we hold these truths to be self evident",
-        ],
-        title: "Full Stack Developer",
-        company: "Empire Life",
-        link: "https://www.google.ca/",
-        startDate: "May 2020",
-        endDate: "June 2021",
-      },
-    ] as ResumeTableTileProps[],
+    values: [],
   },
   {
     type: dataTypes.projects,
-    values: [
-      {
-        bodyPoints: [
-          "four score and 25 years ago we hold these truths to be self evident",
-        ],
-        title: "Full Stack Developer",
-        company: "Empire Life",
-        link: "https://www.google.ca/",
-        startDate: "May 2020",
-        endDate: "June 2021",
-      },
-    ] as ResumeTableTileProps[],
+    values: [],
   },
   {
     type: dataTypes.activities,
-    values: [
-      {
-        bodyPoints: [
-          "four score and 25 years ago we hold these truths to be self evident",
-        ],
-        title: "Full Stack Developer",
-        company: "Empire Life",
-        link: "https://www.google.ca/",
-        startDate: "May 2020",
-        endDate: "June 2021",
-      },
-    ] as ResumeTableTileProps[],
+    values: [],
   },
   {
     type: dataTypes.skills,
-    values: [
-      {
-        languages: ["C++", "JS"],
-        frameworks: [
-          "React",
-          "ASP.NET",
-          "Node",
-          "Django",
-          "ASP.NET",
-          "Node",
-          "Django",
-          "ASP.NET",
-          "Node",
-          "Django",
-        ],
-        tools: ["VSCode", "Burpsuite"],
-      },
-    ] as SkillsBubblesProps[],
+    values: [],
   },
-];
+]
 
 const ResumeTable = () => {
   const [isLarge, setIsLarge] = useState(true);
-  const [resumeData, setResumeData] = useState(tempInitialData);
+  const [resumeData, setResumeData] = useState(initialData);
   const { isDarkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
@@ -116,6 +59,39 @@ const ResumeTable = () => {
     resizeTable();
   }, []);
 
+  const getData = async () => {
+      const experiences = await GetExperiences();
+      const resumeProjects = await GetResumeProjects();
+      const activities = await GetActivities();
+      const skills = await GetSkills();
+
+      const newResumeState = [
+        {
+          type: dataTypes.experiences,
+          values: experiences,
+        },
+        {
+          type: dataTypes.projects,
+          values: resumeProjects,
+        },
+        {
+          type: dataTypes.activities,
+          values: activities,
+        },
+        {
+          type: dataTypes.skills,
+          values: skills,
+        },
+      ];
+
+      setResumeData(newResumeState);
+  }
+
+  useEffect(() => {
+    getData();
+  },[])
+
+
   const resizeTable = () => {
     const isLarge = window.innerWidth > 910;
     setIsLarge(isLarge);
@@ -124,7 +100,7 @@ const ResumeTable = () => {
   const isDefaultTile = (
     dataValue: ResumeTableTileProps | SkillsBubblesProps
   ): dataValue is ResumeTableTileProps => {
-    return (dataValue as ResumeTableTileProps).bodyPoints !== undefined;
+    return (dataValue as ResumeTableTileProps).body_points !== undefined;
   };
 
   const isSkillTile = (
@@ -162,12 +138,12 @@ const ResumeTable = () => {
           return (
             isDefaultTile(data) && (
               <ResumeTableTile
-                bodyPoints={data.bodyPoints}
+                body_points={data.body_points}
                 title={data.title}
-                company={data.company}
+                sub_description={data.sub_description}
                 link={data.link}
-                startDate={data.startDate}
-                endDate={data.endDate}
+                start_date={data.start_date}
+                end_date={data.end_date}
               />
             )
           );

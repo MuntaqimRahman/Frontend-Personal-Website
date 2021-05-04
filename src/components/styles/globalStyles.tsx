@@ -36,3 +36,12 @@ export const SimpleLink = styled(Link)`
     text-decoration: none;
     color: inherit;
   `
+
+export const ContentTileContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 4vw;
+    margin-right: 4vw;
+    width: 92vw;
+  `;
