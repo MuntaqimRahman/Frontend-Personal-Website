@@ -7,7 +7,7 @@ import { DarkModeProps } from "../styles/LightDarkThemes";
 
 const SiteLogo: FC<DarkModeProps>  = ({isDarkMode}) => {
     return(
-        <img width="100%" height="100%" src = {isDarkMode ? SiteLogoDark : SiteLogoLight}/>
+        <img width="100%" height="100%" alt="logo" src = {isDarkMode ? SiteLogoDark : SiteLogoLight}/>
     )
 }
 

@@ -1,10 +1,7 @@
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext } from "react";
 import styled from "styled-components";
 
 import DarkModeContext from "../../contexts/darkmode";
-import {
-  TopLayerThemeProps,
-} from "../../components/styles/globalStyles";
 
 import IconLinks from "../icon-links/icon-links";
 

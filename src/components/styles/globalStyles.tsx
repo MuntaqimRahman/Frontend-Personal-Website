@@ -1,6 +1,5 @@
 import { FC } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { DarkModeProps } from "./LightDarkThemes";
 import { ThemeProvider } from "styled-components";
 import { topLayerLightMode, topLayerDarkMode } from "./LightDarkThemes";
 

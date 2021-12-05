@@ -64,6 +64,7 @@ const ContentPage: FC<ContentPageProps> = ({ pageType }) => {
 
   useEffect(() => {
     getData();
+    //eslint-disable-next-line
   }, []);
 
   const ContentPageContainer = styled.div`

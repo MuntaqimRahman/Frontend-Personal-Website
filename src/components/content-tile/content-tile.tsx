@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { SimpleLink } from "../styles/globalStyles";
-
 import { TileHolder } from "../styles/globalStyles";
 
 interface ContentTitleProps {
@@ -108,7 +107,7 @@ const ContentTile: FC<ContentTitleProps> = ({
                   src={imgs[0]}
                   width="100%"
                   height="100%"
-                  alt="content image"
+                  alt="thumbnail"
                 />
               </ImageContainer>
             )}
