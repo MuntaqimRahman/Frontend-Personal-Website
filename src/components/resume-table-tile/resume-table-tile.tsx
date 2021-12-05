@@ -2,11 +2,13 @@ import { FC, useContext, useEffect } from "react";
 import styled from "styled-components";
 
 import DarkModeContext from "../../contexts/darkmode";
-import { DarkModeProps } from "../../components/styles/LightDarkThemes";
+import {
+  TopLayerThemeProps,
+} from "../../components/styles/globalStyles";
 
 import IconLinks from "../icon-links/icon-links";
 
-import LinkIconLight from "../../assets/LinkIcon-LightMode.png";
+import LinkIconLight from "../../assets/LinkIcon-LightMode.svg";
 import LinkIconDark from "../../assets/LinkIcon-DarkMode.png";
 import { TileHolder } from "../styles/globalStyles";
 
@@ -37,7 +39,11 @@ const ResumeTableTile: FC<ResumeTableTileProps> = ({
 
   const SubDescriptionContainer = styled.span`
     font-size: 1.1em;
-    margin-left: 30px;
+    margin-left: 1vmax;
+
+    @media (min-width: 1537px) {
+      font-size: 22px;
+    }
   `;
 
   const IconLinkContainer = styled.div`
@@ -46,20 +52,36 @@ const ResumeTableTile: FC<ResumeTableTileProps> = ({
   `;
 
   const DurationContainer = styled.div`
-    margin-right: 20px;
+    margin-right: 1vmax;
+    margin-top: 0.3vmax;
     font-size: 0.9em;
+
+    @media (min-width: 1537px) {
+      font-size: 22px;
+    }
   `;
 
   const BulletPointContainer = styled.div`
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 1vmax;
+
+    @media (min-width: 1537px) {
+      font-size: 20px;
+    }
   `;
 
   const TitleContainer = styled.div`
     font-size: 1.5em;
     font-weight: bold;
-    margin-left: 30px;
-    margin-top: 10px;
+    margin-left: 1vmax;
+    margin-top: 0.5vmax;
+
+    @media (min-width: 1537px) {
+      font-size: 32px;
+    }
+  `;
+
+  const StyledTileContainer = styled(TileHolder)`
+    margin-bottom: 20px;
   `;
 
   const linkIconData = [
@@ -85,7 +107,7 @@ const ResumeTableTile: FC<ResumeTableTileProps> = ({
   };
 
   return (
-    <TileHolder isDarkMode={isDarkMode}>
+    <StyledTileContainer>
       <TitleContainer> {title} </TitleContainer>
       <SecondaryContainer>
         <SubDescriptionContainer>
@@ -110,7 +132,7 @@ const ResumeTableTile: FC<ResumeTableTileProps> = ({
           </ul>
         </BulletPointContainer>
       )}
-    </TileHolder>
+    </StyledTileContainer>
   );
 };
 

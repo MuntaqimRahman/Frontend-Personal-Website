@@ -1,4 +1,6 @@
-import { useEffect, useState, useContext } from "react";
+import { FC, useEffect, useState, useContext } from "react";
+import moment from "moment";
+import StyledClipLoader from "../clip-loader/clip-loader";
 import styled from "styled-components";
 import ResumeTableTile, {
   ResumeTableTileProps,
@@ -7,45 +9,26 @@ import SkillsBubbles, {
   SkillsBubblesProps,
 } from "../skills-bubbles/skills-bubbles";
 
-import { DarkModeProps } from "../../components/styles/LightDarkThemes";
 import DarkModeContext from "../../contexts/darkmode";
 
-import {GetExperiences, GetResumeProjects, GetActivities, GetSkills} from "../../api/resume_api";
+import {
+  dataTypes,
+  resumeDataState,
+} from "../../static/resume-data-information";
 
-const dataTypes = {
-  experiences: "EXPERIENCES",
-  projects: "PROJECTS",
-  activities: "ACTIVITIES",
-  skills: "SKILLS",
-};
-
-interface resumeDataState {
-  type: string;
-  values: ResumeTableTileProps[] | SkillsBubblesProps[];
+interface ResumeTableProps {
+  isGettingData: boolean;
+  isDataLoaded: boolean;
+  resumeData: resumeDataState[];
 }
 
-const initialData = [
-  {
-    type: dataTypes.experiences,
-    values: [],
-  },
-  {
-    type: dataTypes.projects,
-    values: [],
-  },
-  {
-    type: dataTypes.activities,
-    values: [],
-  },
-  {
-    type: dataTypes.skills,
-    values: [],
-  },
-]
+const ResumeTable: FC<ResumeTableProps> = ({
+  isGettingData,
+  isDataLoaded,
+  resumeData,
+}) => {
+  const [isLarge, setIsLarge] = useState<boolean>(true);
 
-const ResumeTable = () => {
-  const [isLarge, setIsLarge] = useState(true);
-  const [resumeData, setResumeData] = useState(initialData);
   const { isDarkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
@@ -58,39 +41,6 @@ const ResumeTable = () => {
   useEffect(() => {
     resizeTable();
   }, []);
-
-  const getData = async () => {
-      const experiences = await GetExperiences();
-      const resumeProjects = await GetResumeProjects();
-      const activities = await GetActivities();
-      const skills = await GetSkills();
-
-      const newResumeState = [
-        {
-          type: dataTypes.experiences,
-          values: experiences,
-        },
-        {
-          type: dataTypes.projects,
-          values: resumeProjects,
-        },
-        {
-          type: dataTypes.activities,
-          values: activities,
-        },
-        {
-          type: dataTypes.skills,
-          values: skills,
-        },
-      ];
-
-      setResumeData(newResumeState);
-  }
-
-  useEffect(() => {
-    getData();
-  },[])
-
 
   const resizeTable = () => {
     const isLarge = window.innerWidth > 910;
@@ -107,6 +57,16 @@ const ResumeTable = () => {
     dataValue: ResumeTableTileProps | SkillsBubblesProps
   ): dataValue is SkillsBubblesProps => {
     return (dataValue as SkillsBubblesProps).languages !== undefined;
+  };
+
+  const formatDateString = (dateString: string): string | null => {
+    const formattedDate = moment(dateString).format("MMM YYYY");
+
+    if (formattedDate === "Invalid date") {
+      return null;
+    }
+
+    return formattedDate;
   };
 
   const renderTileComponent = (tileType: string) => {
@@ -142,8 +102,10 @@ const ResumeTable = () => {
                 title={data.title}
                 sub_description={data.sub_description}
                 link={data.link}
-                start_date={data.start_date}
-                end_date={data.end_date}
+                start_date={
+                  data.start_date && formatDateString(data.start_date)
+                }
+                end_date={data.end_date && formatDateString(data.end_date)}
               />
             )
           );
@@ -169,7 +131,7 @@ const ResumeTable = () => {
           {columns.map((tileName) => {
             return (
               <TilesWrapper>
-                <TileHeader isDarkMode={isDarkMode}> {tileName} </TileHeader>
+                <TileHeader> {tileName} </TileHeader>
                 {renderTileComponent(tileName)}
               </TilesWrapper>
             );
@@ -183,7 +145,6 @@ const ResumeTable = () => {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-left: 60px;
     margin-bottom: 20px;
     width: 90%;
   `;
@@ -198,19 +159,33 @@ const ResumeTable = () => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 1vmax;
     border-radius: 10px;
   `;
 
-  const TileHeader = styled.span<DarkModeProps>`
-    font-size: 1.7em;
+  const TileHeader = styled.span`
     font-weight: bold;
-    color: ${({ isDarkMode }) => (isDarkMode ? "#FFFFFF" : "#000000")};
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-top: 10px;
+
+    @media (min-width: 0px) and (max-width: 1537px) {
+      font-size: 32px;
+    }
+
+    @media (min-width: 1537px) {
+      font-size: 34px;
+    }
   `;
 
-  return <TableContainer>{renderResumeComponents()}</TableContainer>;
+  return (
+    <TableContainer>
+      {isGettingData ? (
+        <StyledClipLoader isDarkMode={isDarkMode} />
+      ) : (
+        isDataLoaded && renderResumeComponents()
+      )}
+    </TableContainer>
+  );
 };
 
 export default ResumeTable;

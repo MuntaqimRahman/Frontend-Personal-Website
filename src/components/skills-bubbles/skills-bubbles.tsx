@@ -38,15 +38,15 @@ const SkillsBubbles: FC<SkillsBubblesProps> = ({
     flex-direction: row;
     width: 100%;
     flex-wrap: wrap;
-    padding-left: 30px;
+    padding-left: 2vmax;
   `;
 
   const SectionHeader = styled.span`
     font-size: 1.05em;
     font-weight: bold;
-    padding-left: 30px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-left: 2vmax;
+    padding-bottom: 0.5vmax;
+    padding-top: 0.5vmax;
   `;
 
   const Bubble = styled.span<DarkModeProps>`
@@ -61,7 +61,7 @@ const SkillsBubbles: FC<SkillsBubblesProps> = ({
   `;
 
   return (
-    <TileHolder isDarkMode={isDarkMode}>
+    <TileHolder>
       {BubbleData.map(({ title, values }) => {
         return (
           values.length > 0 && (

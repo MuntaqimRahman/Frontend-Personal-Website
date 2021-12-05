@@ -1,14 +1,13 @@
-import {createContext} from 'react';
+import { createContext } from "react";
 
-
-export interface IDarkModeProps {
-    isDarkMode: boolean | null,
-    setIsDarkMode: (isDarkMode: boolean | null) => void
+export interface IDarkModeStates {
+  isDarkMode: boolean | null;
+  setIsDarkMode: (isDarkMode: boolean | null) => void;
 }
 
-const DarkModeContext = createContext<IDarkModeProps>({
-    isDarkMode: false,
-    setIsDarkMode: (isDarkMode: boolean | null) => {}
+const DarkModeContext = createContext<IDarkModeStates>({
+  isDarkMode: false,
+  setIsDarkMode: (isDarkMode: boolean | null) => {},
 });
 
 export const DarkModeContextConsumer = DarkModeContext.Consumer;

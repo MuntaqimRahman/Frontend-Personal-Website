@@ -5,7 +5,8 @@ import React,{useEffect, useState} from 'react';
 
 type IReturn <Type> = [
     Type | null,
-    React.Dispatch<React.SetStateAction<Type | null>>
+    React.Dispatch<React.SetStateAction<Type | null>>,
+    boolean
 ]
 
 
@@ -27,6 +28,7 @@ const useLocalStorage = <Type extends {}>(key: string, initialValue?: Type): IRe
     }
 
     const [localStorageState,setLocalStorageState] = useState<Type | null>(initialFunction);
+    const [ isComponentMounted, setIsComponentMounted] = useState<boolean>(false);
 
     useEffect(() => {
         
@@ -34,13 +36,15 @@ const useLocalStorage = <Type extends {}>(key: string, initialValue?: Type): IRe
 
         try{
             localStorage.setItem(key,JSON.stringify(localStorageState));
+            setIsComponentMounted(true);
         } catch (err){
-            console.log(err)
+            console.log(err);
+            setIsComponentMounted(true);
             return;
         }
     },[localStorageState, key])
 
-    return [localStorageState,setLocalStorageState];    
+    return [localStorageState,setLocalStorageState, isComponentMounted];    
 }
 
 export default useLocalStorage;

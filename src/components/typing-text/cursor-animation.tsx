@@ -22,7 +22,7 @@ const AnimatedTypingCursor: FC<AnimatedTypingCursorProps> = ({fontSize,delay}) =
     },delay)
 
     return(
-        <span style={{fontSize: fontSize}}>
+        <span>
             {isShowingCursor && "|"}
         </span>
     );

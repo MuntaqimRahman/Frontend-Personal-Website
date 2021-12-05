@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AnimatedTypingCursor from "./cursor-animation";
 import useInterval from "../../hooks/useInterval";
 
 const adjectives = ["developer", "designer", "student"];
 const animationStages = ["typing", "hovering", "deleting"];
 const initialString = "I'm a ";
-const fontSize = "4vw";
 
 const TypingText = () => {
   const [animationStage, setAnimationStage] = useState<string>(
@@ -92,11 +91,10 @@ const TypingText = () => {
 
   return (
     <div>
-      <span style={{ fontSize: fontSize }}>
+      <span>
         {displayedString}
         <AnimatedTypingCursor
           delay={animationStage === animationStages[1] ? 800 : null}
-          fontSize={fontSize}
         />
       </span>
     </div>

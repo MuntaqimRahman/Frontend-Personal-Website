@@ -17,6 +17,7 @@ const LandingContainer = styled.div<DarkModeProps>`
   display: flex;
   position: relative;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   height: 600px;
@@ -25,32 +26,79 @@ const LandingContainer = styled.div<DarkModeProps>`
 const NameLabel = styled.span`
   position: relative;
   text-align: center;
-  font-size: 54px;
-  padding-top: 60px;
+
+  @media (min-width: 0px) and (max-width: 910px){
+    font-size: 46px;
+  }
+
+  @media (min-width: 910px) and (max-width: 1537px){
+    font-size: 60px;
+  }
+
+  @media (min-width: 1537px){
+    font-size: 100px;
+  }
+
 `;
 
 const FaceContainer = styled.div`
   position: relative;
-  width: 200px !important;
-  min-height: 200px;
   border-radius: 50%;
-  margin-top: 30px;
   background-image: url(${FaceImage});
-  background-size: 200px 200px;
+
+  @media (min-width: 0px) and (max-width: 910px){
+    width: 175px !important;
+    height: 175px;
+    background-size: 175px 175px;
+  }
+
+  @media (min-width: 910px) and (max-width: 1537px){
+    width: 200px !important;
+    height: 200px;
+    background-size: 200px 200px;
+  }
+
+  @media (min-width: 1537px){
+    width: 250px !important;
+    min-height: 250px;
+    height: 250px !important;
+    background-size: 250px 250px;
+  }
 `;
 const TypingTextContainer = styled.div`
   position: relative;
-  padding-top: 30px;
-  padding-left: 4vw;
-  width: 480px;
+
+  @media (min-width: 0px) and (max-width: 910px){
+    font-size: 32px;
+    width: 230px;
+  }
+
+  @media (min-width: 910px) and (max-width: 1537px){
+    font-size: 52px;
+    width: 380px;
+  }
+
+  @media (min-width: 1537px){
+    font-size: 72px;
+    width: 520px;
+  }
 `;
 const IconLinkContainer = styled.div`
   position: relative;
   display: flex;
-  width: 100%;
-  max-width: 540px;
-  padding-top: 40px;
   justify-content: space-between;
+
+  @media (min-width: 0px) and (max-width: 910px){
+    width: 230px;
+  }
+
+  @media (min-width: 910px) and (max-width: 1537px){
+    width: 500px;
+  }
+
+  @media (min-width: 1537px){
+    width: 800px;
+  }
 `;
 
 const ParticleContainer = styled.div`
@@ -63,7 +111,7 @@ const particleParams = {
   fps_limit: 28,
   particles: {
     number: {
-      value: 500,
+      value: 400,
       density: {
         enable: false,
       },
@@ -91,7 +139,7 @@ const particleParams = {
       onhover: {
         enable: true,
         mode: "bubble",
-      },
+      }
     },
     modes: {
       bubble: {

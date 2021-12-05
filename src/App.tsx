@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Pages
@@ -12,44 +11,55 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import Header from "./pages/header/header";
 
 import { ThemeProvider } from "styled-components";
-import { GlobalStyle } from "./components/styles/globalStyles";
+import { GlobalStyle, TopLayerTheme } from "./components/styles/globalStyles";
 import { lightMode, darkMode } from "./components/styles/LightDarkThemes";
 import { DarkModeContextProvider } from "./contexts/darkmode";
 
 import { ContentPageTypes } from "./enum/enum";
 
+
 function App() {
-  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode", true);
+  const [isDarkMode, setIsDarkMode, isComponentMounted] = useLocalStorage(
+    "isDarkMode",
+    true
+  );
+
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
+  
 
   return (
+    !isComponentMounted ? 
+      <></> :
+
     <Router>
       <ThemeProvider theme={isDarkMode === true ? darkMode : lightMode}>
         <DarkModeContextProvider value={{ isDarkMode, setIsDarkMode }}>
           <GlobalStyle />
-          <div className="App">
-            <Header toggleDarkMode={toggleDarkMode} />
-          </div>
-          <Switch>
-            <Route exact path="/portfolio">
-              <PortfolioPage />
-            </Route>
-            <Route path={`/portfolio/:ID`}>
-              <ContentPage pageType={ContentPageTypes.Portfolio} />
-            </Route>
-            <Route exact path="/blogs">
-              <BlogPage />
-            </Route>
-            <Route exact path={`/blogs/:ID`}>
-              <ContentPage pageType={ContentPageTypes.Blog} />
-            </Route>
-            <Route path="/">
-              <AboutPage />
-            </Route>
-          </Switch>
+          <TopLayerTheme isDarkMode={isDarkMode}>
+            <div className="App">
+              <Header toggleDarkMode={toggleDarkMode} />
+            </div>
+            <Switch>
+              <Route exact path="/portfolio">
+                <PortfolioPage />
+              </Route>
+              <Route path={`/portfolio/:ID`}>
+                <ContentPage pageType={ContentPageTypes.Portfolio} />
+              </Route>
+              <Route exact path="/blogs">
+                <BlogPage />
+              </Route>
+              <Route exact path={`/blogs/:ID`}>
+                <ContentPage pageType={ContentPageTypes.Blog} />
+              </Route>
+              <Route path="/">
+                <AboutPage />
+              </Route>
+            </Switch>
+          </TopLayerTheme>
         </DarkModeContextProvider>
       </ThemeProvider>
     </Router>

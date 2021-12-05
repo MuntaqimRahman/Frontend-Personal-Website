@@ -1,13 +1,8 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
 import styled from "styled-components";
-import {SimpleLink} from "../styles/globalStyles";
-import { Route } from "react-router-dom";
-
-import DarkModeContext from "../../contexts/darkmode";
+import { SimpleLink } from "../styles/globalStyles";
 
 import { TileHolder } from "../styles/globalStyles";
-
-import ContentPage from "../../pages/content-page/content-page";
 
 interface ContentTitleProps {
   id: number;
@@ -28,22 +23,29 @@ const ContentTile: FC<ContentTitleProps> = ({
   content,
   imgs,
   isLeftAligned,
-  url
+  url,
 }) => {
-  const { isDarkMode } = useContext(DarkModeContext);
-
   const ContentContainer = styled.div<LeftAlignedProps>`
     display: flex;
     flex-direction: ${({ isLeftAligned }) =>
       isLeftAligned ? "row" : "row-reverse"};
+    
+    align-items: center;
+
     height: 13vw;
   `;
 
-  const ContentTileHolder = styled(TileHolder)<LeftAlignedProps>`
+  const ContentTileContainer = styled(TileHolder)<LeftAlignedProps>`
     cursor: pointer;
-    padding-left: ${({ isLeftAligned }) => (isLeftAligned ? "20px" : "0px")};
-    padding-right: ${({ isLeftAligned }) => (isLeftAligned ? "0px" : "20px")};
-    padding-top: 20px;
+    padding-left: ${({ isLeftAligned }) => (isLeftAligned ? "1.5vmax" : "0px")};
+    padding-right: ${({ isLeftAligned }) =>
+      isLeftAligned ? "0px" : "1.5vmax"};
+    transition: background, color, box-shadow 0.3s linear;
+
+    &:hover {
+      box-shadow: 0 3px 6px -4px rgb(0 0 0 / 16%);
+      transition: box-shadow 0.3s linear;
+    }
   `;
 
   const TextContainer = styled.div<LeftAlignedProps>`
@@ -51,10 +53,10 @@ const ContentTile: FC<ContentTitleProps> = ({
     flex-direction: column;
     justify-content: center;
 
-    margin-left: ${({ isLeftAligned }) => (isLeftAligned ? "3vw" : "0px")};
-    margin-right: ${({ isLeftAligned }) => (isLeftAligned ? "0px" : "3vw")};
-    width: 75vw;
-    height: 100%;
+    margin-left: ${({ isLeftAligned }) => (isLeftAligned ? "3vw" : "2vw")};
+    margin-right: ${({ isLeftAligned }) => (isLeftAligned ? "2vw" : "3vw")};
+    width: 76%;
+    height: 85%;
 
     overflow: hidden;
   `;
@@ -78,28 +80,46 @@ const ContentTile: FC<ContentTitleProps> = ({
     @media (max-width: 910px) {
       display: none;
     }
-
-    column-width: 1152px;
     height: 80%;
   `;
 
+  const ComponentContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2vmax;
+  `;
+
+  const ImageContainer = styled.div`
+      margin: auto;
+      align-self: center;
+      width: 24%;
+      height: 85%;
+  `;
+
   return (
-    <>
-    <SimpleLink to={`${url}/${id}`}>
-      <ContentTileHolder isLeftAligned={isLeftAligned} isDarkMode={isDarkMode}>
-        <ContentContainer isLeftAligned={isLeftAligned}>
-          {Array.isArray(imgs) && imgs.length > 0 && (
-            <img src={imgs[0]} width="13%" height="100%" alt="content image" />
-          )}
-          <TextContainer isLeftAligned={isLeftAligned}>
-            <TitleContainer>{title}</TitleContainer>
-            <TextContentContainer>{content} </TextContentContainer>
-          </TextContainer>
-        </ContentContainer>
-      </ContentTileHolder>
-    </SimpleLink>
-    
-    </>
+    <ComponentContainer>
+      <SimpleLink to={`${url}/${id}`}>
+        <ContentTileContainer isLeftAligned={isLeftAligned}>
+          <ContentContainer isLeftAligned={isLeftAligned}>
+            {Array.isArray(imgs) && imgs.length > 0 && (
+              <ImageContainer>
+                <img
+                  src={imgs[0]}
+                  width="100%"
+                  height="100%"
+                  alt="content image"
+                />
+              </ImageContainer>
+            )}
+            <TextContainer isLeftAligned={isLeftAligned}>
+              <TitleContainer>{title}</TitleContainer>
+              <TextContentContainer>{content} </TextContentContainer>
+            </TextContainer>
+          </ContentContainer>
+        </ContentTileContainer>
+      </SimpleLink>
+    </ComponentContainer>
   );
 };
 
