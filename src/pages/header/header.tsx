@@ -74,20 +74,12 @@ const LinkLabel = styled.span`
 
 const StyledLink = styled(SimpleLink)<DarkModeProps>`
 
-  &:after{
-    content: "";
-    display: block;
-    width: 0%;
-    padding-top: 5px;
-    border-bottom: 1px solid ${({ isDarkMode }) =>
-      isDarkMode ? "#E8E8E8" : "#464547"}};
-    transition: width 2s;
-  }
+transition: opacity ease-out 0.2s;
 
-    &:hover:after{
-      width: 100%;
-      transition: width 0.3s;
-    }
+&:hover{
+  transition: opacity ease-out 0.2s;
+  opacity: 0.5;
+}
   
 `;
 
