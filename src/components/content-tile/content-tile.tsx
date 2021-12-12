@@ -35,6 +35,7 @@ const ContentTile: FC<ContentTitleProps> = ({
   `;
 
   const ContentTileContainer = styled(TileHolder)<LeftAlignedProps>`
+    display: flex;
     cursor: pointer;
     padding-left: ${({ isLeftAligned }) => (isLeftAligned ? "1.5vmax" : "0px")};
     padding-right: ${({ isLeftAligned }) =>
@@ -50,7 +51,7 @@ const ContentTile: FC<ContentTitleProps> = ({
   const TextContainer = styled.div<LeftAlignedProps>`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
 
     margin-left: ${({ isLeftAligned }) => (isLeftAligned ? "3vw" : "2vw")};
     margin-right: ${({ isLeftAligned }) => (isLeftAligned ? "2vw" : "3vw")};
@@ -61,7 +62,9 @@ const ContentTile: FC<ContentTitleProps> = ({
   `;
 
   const TitleContainer = styled.div`
-    display: block;
+    position: relative;
+    top: -0.6vw;
+    display: flex;
     font-size: 2vw;
     font-weight: bold;
     overflow: hidden;
@@ -74,6 +77,7 @@ const ContentTile: FC<ContentTitleProps> = ({
   `;
 
   const TextContentContainer = styled.div`
+    display: flex;
     font-size: 1.1vw;
 
     @media (max-width: 910px) {
@@ -83,8 +87,7 @@ const ContentTile: FC<ContentTitleProps> = ({
   `;
 
   const ComponentContainer = styled.div`
-    display: flex;
-    flex-direction: row;
+    width: 100%;
     align-items: center;
     margin-bottom: 2vmax;
   `;
