@@ -16,15 +16,7 @@ interface LeftAlignedProps {
   isLeftAligned: boolean;
 }
 
-const ContentTile: FC<ContentTitleProps> = ({
-  id,
-  title,
-  content,
-  imgs,
-  isLeftAligned,
-  url,
-}) => {
-  const ContentContainer = styled.div<LeftAlignedProps>`
+const ContentContainer = styled.div<LeftAlignedProps>`
     display: flex;
     flex-direction: ${({ isLeftAligned }) =>
       isLeftAligned ? "row" : "row-reverse"};
@@ -98,6 +90,15 @@ const ContentTile: FC<ContentTitleProps> = ({
       width: 24%;
       height: 85%;
   `;
+
+const ContentTile: FC<ContentTitleProps> = ({
+  id,
+  title,
+  content,
+  imgs,
+  isLeftAligned,
+  url,
+}) => {
 
   return (
     <ComponentContainer>
