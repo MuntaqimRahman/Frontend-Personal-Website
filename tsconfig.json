@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
+    "typeRoots": ["./src/types"],
     "lib": [
       "dom",
       "dom.iterable",

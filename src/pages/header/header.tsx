@@ -6,10 +6,9 @@ import ToggleButton from "../../components/toggle-button/toggle-button";
 import SiteLogo from "../../components/site-logo/site-logo";
 
 import styled from "styled-components";
-import {
-  TopLayerThemeProps,
-} from "../../components/styles/globalStyles";
+import { TopLayerThemeProps } from "../../components/styles/globalStyles";
 import { DarkModeProps } from "../../components/styles/LightDarkThemes";
+import ResumePDF from "../../assets/Muntaqim-Rahman-Resume-F.pdf";
 
 const HeaderWrapper = styled.div<TopLayerThemeProps>`
   display: flex;
@@ -56,15 +55,15 @@ const LinkContainer = styled.div`
   align-self: center;
 
   @media (min-width: 0px) and (max-width: 910px) {
-    width: 100px;
+    width: 150px;
   }
 
   @media (min-width: 910px) and (max-width: 1537px) {
-    width: 140px;
+    width: 200px;
   }
 
   @media (min-width: 1537px) {
-    width: 200px;
+    width: 300px;
   }
 `;
 
@@ -73,14 +72,12 @@ const LinkLabel = styled.span`
 `;
 
 const StyledLink = styled(SimpleLink)<DarkModeProps>`
-
-transition: opacity ease-out 0.2s;
-
-&:hover{
   transition: opacity ease-out 0.2s;
-  opacity: 0.5;
-}
-  
+
+  &:hover {
+    transition: opacity ease-out 0.2s;
+    opacity: 0.5;
+  }
 `;
 
 const LogoContainer = styled.div`
@@ -104,6 +101,10 @@ const LogoContainer = styled.div`
   }
 `;
 
+const ResumeLink = styled.div`
+  font-weight: bold; 
+`
+
 interface HeaderProps {
   toggleDarkMode: () => void;
 }
@@ -112,26 +113,29 @@ const Header: FC<HeaderProps> = ({ toggleDarkMode }) => {
   const { isDarkMode } = useContext(DarkModeContext);
 
   return (
-      <HeaderWrapper>
-        <LeftControlContainer>
-          <SimpleLink to="/">
-            <LogoContainer>
-              <SiteLogo isDarkMode={isDarkMode} />
-            </LogoContainer>
-          </SimpleLink>
-          <DarkModeLabel>Dark Mode</DarkModeLabel>
-          <ToggleButton onClickHandler={toggleDarkMode} />
-        </LeftControlContainer>
+    <HeaderWrapper>
+      <LeftControlContainer>
+        <SimpleLink to="/">
+          <LogoContainer>
+            <SiteLogo isDarkMode={isDarkMode} />
+          </LogoContainer>
+        </SimpleLink>
+        <DarkModeLabel>Dark Mode</DarkModeLabel>
+        <ToggleButton onClickHandler={toggleDarkMode} />
+      </LeftControlContainer>
 
-        <LinkContainer>
-          <StyledLink isDarkMode={isDarkMode} to="/portfolio">
-            <LinkLabel> Portfolio </LinkLabel>
-          </StyledLink>
-          <StyledLink isDarkMode={isDarkMode} to="/blogs">
-            <LinkLabel> Blog </LinkLabel>
-          </StyledLink>
-        </LinkContainer>
-      </HeaderWrapper>
+      <LinkContainer>
+        <StyledLink to={ResumePDF} target="_blank" rel="noreferrer">
+          <LinkLabel><ResumeLink>Resume</ResumeLink></LinkLabel>{" "}
+        </StyledLink>
+        <StyledLink isDarkMode={isDarkMode} to="/portfolio">
+          <LinkLabel> Portfolio </LinkLabel>
+        </StyledLink>
+        <StyledLink isDarkMode={isDarkMode} to="/blogs">
+          <LinkLabel> Blog </LinkLabel>
+        </StyledLink>
+      </LinkContainer>
+    </HeaderWrapper>
   );
 };
 
