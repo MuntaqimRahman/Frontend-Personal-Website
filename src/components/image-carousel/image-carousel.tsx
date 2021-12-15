@@ -40,8 +40,8 @@ const ImageCarousel: FC<ImageCarouselProps> = ({ images }) => {
         renderButtonGroupOutside
       >
         {images.length > 0 &&
-          images.map((imageSource) => {
-            return <img width="100%" height="100%" alt="" src={imageSource} />;
+          images.map((imageSource, idx) => {
+            return <img key={idx} width="100%" height="100%" alt="" src={imageSource} />;
           })}
       </Carousel>
     </>

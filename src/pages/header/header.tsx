@@ -7,7 +7,6 @@ import SiteLogo from "../../components/site-logo/site-logo";
 
 import styled from "styled-components";
 import { TopLayerThemeProps } from "../../components/styles/globalStyles";
-import { DarkModeProps } from "../../components/styles/LightDarkThemes";
 import ResumePDF from "../../assets/Muntaqim-Rahman-Resume-F.pdf";
 
 const HeaderWrapper = styled.div<TopLayerThemeProps>`
@@ -71,7 +70,7 @@ const LinkLabel = styled.span`
   cursor: pointer;
 `;
 
-const StyledLink = styled(SimpleLink)<DarkModeProps>`
+const StyledLink = styled(SimpleLink)`
   transition: opacity ease-out 0.2s;
 
   &:hover {
@@ -128,10 +127,10 @@ const Header: FC<HeaderProps> = ({ toggleDarkMode }) => {
         <StyledLink to={ResumePDF} target="_blank" rel="noreferrer">
           <LinkLabel><ResumeLink>Resume</ResumeLink></LinkLabel>{" "}
         </StyledLink>
-        <StyledLink isDarkMode={isDarkMode} to="/portfolio">
+        <StyledLink to="/portfolio">
           <LinkLabel> Portfolio </LinkLabel>
         </StyledLink>
-        <StyledLink isDarkMode={isDarkMode} to="/blogs">
+        <StyledLink to="/blogs">
           <LinkLabel> Blog </LinkLabel>
         </StyledLink>
       </LinkContainer>
