@@ -11,7 +11,8 @@ import { DarkModeProps } from "../../components/styles/LightDarkThemes";
 import filterIconArrayByTheme from "./filter-icon-link";
 import { MoveDirection } from "tsparticles";
 
-import Particles from "react-particles-js";
+import Particles from "react-tsparticles";
+import './particle.css';
 
 const LandingContainer = styled.div<DarkModeProps>`
   display: flex;
@@ -108,23 +109,24 @@ const ParticleContainer = styled.div`
 `;
 
 const particleParams = {
-  fps_limit: 28,
+  fpsLimit: 28,
   particles: {
+    size: {
+      value: 1
+    },
     number: {
       value: 400,
       density: {
         enable: false,
       },
     },
-    line_linked: {
-      enable: false,
-    },
     move: {
+      enable: true,
       speed: 0.1,
       direction: MoveDirection["top"],
     },
     opacity: {
-      anim: {
+      animation: {
         enable: true,
         opacity_min: 0.05,
         speed: 1,
@@ -133,13 +135,14 @@ const particleParams = {
       value: 1,
     },
   },
-  retina_detect: false,
+  detectRetina: false,
   interactivity: {
     events: {
-      onhover: {
+      onHover: {
         enable: true,
         mode: "bubble",
-      }
+      },
+      resize: true
     },
     modes: {
       bubble: {
@@ -153,18 +156,32 @@ const particleParams = {
 const LandingComponent = () => {
   const { isDarkMode } = useContext(DarkModeContext);
 
+  const particlesInit = (main: any) => {
+    console.log(main);
+
+    // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
+  };
+
+  const particlesLoaded = (container: any) => {
+    console.log(container);
+  };
+
   return (
     <LandingContainer isDarkMode={isDarkMode}>
       <ParticleContainer>
         <Particles
-          params={{
+          id="tsparticles"
+          init={particlesInit}
+          loaded={particlesLoaded}
+          options={{
             ...particleParams,
             particles: {
               ...particleParams.particles,
               color: { value: isDarkMode ? "#FFFFFF" : "#000000" },
             },
           }}
-          width={"100%"}
+          canvasClassName = "particles-canvas"
+          width="100%"
           height="600px"
         />
       </ParticleContainer>
