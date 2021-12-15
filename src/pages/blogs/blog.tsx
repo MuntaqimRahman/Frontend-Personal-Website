@@ -48,6 +48,7 @@ const BlogPage = () => {
         blogData.map(({ id, title, imgs, description }) => {
           return (
             <ContentTile
+              key={id}
               isLeftAligned={false}
               id={id}
               imgs={imgs}

@@ -48,6 +48,7 @@ const PortfolioPage = () => {
         portfolioData.map(({ id, title, imgs, description }) => {
           return (
             <ContentTile
+              key={id}
               isLeftAligned={true}
               id={id}
               imgs={imgs}
