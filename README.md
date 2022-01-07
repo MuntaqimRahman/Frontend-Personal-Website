@@ -8,4 +8,5 @@ It has a dark mode feature which stores your selection in localStorage using my 
 
 You can see it hosted here https://muntaqim-website-frontend.herokuapp.com/
 
-I aim to add a domain at a time in the future once more content is uploaded to it.
+I aim to add a domain at a time in the future once more content is uploaded to it. Note I've allowed Heroku to let my application sleep when not called on to save
+resources. This may mean it will load slowly the first time you go onto it before Heroku wakes it up.
